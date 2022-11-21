@@ -1,5 +1,6 @@
 //Arduino Door Lock Access Control Project
-//Library: MFRC522,  https://github.com/miguelbalboa/rfid
+//Library: MFRC522, LiquidCrystal i2c
+//https://github.com/MuhameeddAshraf/RFID
 
 #include <SPI.h>
 #include <MFRC522.h>
@@ -18,7 +19,7 @@ LiquidCrystal_I2C lcd(0x3F, 16, 2);
 byte nuidPICC[4];
 
 // Put Your access NUID Here
-byte master[4] = {0x49, 0xA1, 0xDE, 0x6E};
+byte master[4] = {0xID, 0xID, 0xID, 0xID};
 
 // Pin connected to lock relay signal
 int lockOutput = 2;
@@ -80,6 +81,12 @@ void loop() {
     lcd.setCursor(0, 0);
     lcd.print(" Access Denied!");
 
+    digitalWrite(redLED, HIGH);
+    digitalWrite(buzzerPin, HIGH);
+    delay(1000);
+    digitalWrite(redLED, LOW);
+    digitalWrite(buzzerPin, LOW);
+    delay(1000);
     digitalWrite(redLED, HIGH);
     digitalWrite(buzzerPin, HIGH);
     delay(1000);
