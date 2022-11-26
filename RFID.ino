@@ -19,7 +19,7 @@ LiquidCrystal_I2C lcd(0x3F, 16, 2);
 byte nuidPICC[4];
 
 // Put Your access NUID Here
-byte master[4] = {0xID, 0xID, 0xID, 0xID};
+byte master[4] = {0x63, 0x5F, 0x42, 0xA7};
 
 // Pin connected to lock relay signal
 int lockOutput = 2;
