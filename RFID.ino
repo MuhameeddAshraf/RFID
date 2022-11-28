@@ -13,7 +13,7 @@
 MFRC522 rfid(SS_PIN, RST_PIN);
 
 // Create LCD object : Use 0x27 If 0x3F Doesn't work
-LiquidCrystal_I2C lcd(0x3F, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 // Init array that will store new NUID
 byte nuidPICC[4];
@@ -64,13 +64,15 @@ void loop() {
   if (getAccessState(master, nuidPICC) == true) {
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print(" Access Granted!");
+    lcd.print("   WELCOME TO SSA ");
+    lcd.setCursor(0, 2);
+    lcd.print("   Access Granted!");
 
     // Turn on relay & green LED for 5 seconds
-    digitalWrite(lockOutput, HIGH);
-    digitalWrite(greenLED, HIGH);
-    delay(4000);
     digitalWrite(lockOutput, LOW);
+    digitalWrite(greenLED,HIGH);
+    delay(4000);
+    digitalWrite(lockOutput, HIGH);
     digitalWrite(greenLED, LOW);
 
     delay(25);  //To fix (LCD, Solenoid) issue
@@ -79,8 +81,14 @@ void loop() {
   } else {
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print(" Access Denied!");
-
+    lcd.print("   WELCOME TO SSA ");
+    lcd.setCursor(0, 1);
+    lcd.print("      <SORRY>");
+    lcd.setCursor(0, 2);
+    lcd.print("   Access Denied!");
+    lcd.setCursor(0, 3);
+    lcd.print("Scan Your Tag Agian!");
+    
     digitalWrite(redLED, HIGH);
     digitalWrite(buzzerPin, HIGH);
     delay(1000);
@@ -115,7 +123,11 @@ bool getAccessState(byte accessCode[], byte newCode[]) {
 
 void printWelcomeMessage() {
   lcd.clear();
-  lcd.print("<Access Control>");
+  lcd.print("   WELCOME TO SSA ");
   lcd.setCursor(0, 1);
-  lcd.print(" Scan Your Tag!");
+  lcd.print("  <Access Control>");
+  lcd.setCursor(0, 2);
+  lcd.print("   Scan Your Tag!");
+  lcd.setCursor(0, 3);
+  lcd.print("</> Mohamed Ashraf");
 }
